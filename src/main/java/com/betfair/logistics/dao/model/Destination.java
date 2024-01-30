@@ -1,11 +1,14 @@
 package com.betfair.logistics.dao.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Entity
 @Table(name = "destinations")
-@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class Destination {
 
     @Id
