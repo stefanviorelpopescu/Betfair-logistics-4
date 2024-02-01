@@ -1,14 +1,18 @@
 package com.betfair.logistics.dao.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
 @Data
+@Builder
 public class Order {
+
+//    @Id
+//    @ColumnDefault(value = "RANDOM_UUID()")
+//    private UUID id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

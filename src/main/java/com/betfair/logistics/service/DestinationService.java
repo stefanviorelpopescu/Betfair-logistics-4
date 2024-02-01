@@ -10,6 +10,7 @@ import com.betfair.logistics.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -64,5 +65,23 @@ public class DestinationService {
         destinationRepository.save(destination);
 
         return destination.getId();
+    }
+
+    public void updateDestination(DestinationDto destinationDto) throws CannotCreateResourceException {
+
+        if (destinationDto.getId() == null) {
+            throw new CannotCreateResourceException("ID should be provided!");
+        }
+        Optional<Destination> optionalDestination = destinationRepository.findByName(destinationDto.getName());
+        if (optionalDestination.isPresent()) {
+            Destination destination = optionalDestination.get();
+            if (!Objects.equals(destination.getId(), destinationDto.getId())) {
+                throw new CannotCreateResourceException(String.format("Name=%s is already assigned to destination with id=%d",
+                        destination.getName(), destination.getId()));
+            }
+        }
+
+        Destination destination = DestinationConverter.dtoToModel(destinationDto);
+        destinationRepository.save(destination);
     }
 }
