@@ -7,6 +7,7 @@ import com.betfair.logistics.dao.repository.DestinationRepository;
 import com.betfair.logistics.dao.repository.OrderRepository;
 import com.betfair.logistics.exception.CannotCreateResourceException;
 import com.betfair.logistics.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +15,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DestinationService {
 
     private final DestinationRepository destinationRepository;
     private final OrderRepository orderRepository;
-
-    public DestinationService(DestinationRepository destinationRepository,
-                              OrderRepository orderRepository) {
-        this.destinationRepository = destinationRepository;
-        this.orderRepository = orderRepository;
-    }
 
     public List<DestinationDto> getAllDestinations() {
 

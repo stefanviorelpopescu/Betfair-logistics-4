@@ -31,16 +31,18 @@ strict mai mare decat data curenta a aplicatiei (ex. Minim 16-12-2021)
 
 ### POST /orders/cancel
 BODY: lista de id-uri a livrarilor ce trebuie anulate  
-Marcheaza o lista de livrari ca fiind anulata. O livrare poate fi anulata in orice moment, chiar si
+* Marcheaza o lista de livrari ca fiind anulata. 
+* O livrare poate fi anulata in orice moment, chiar si
 cand este in curs de livrare.  
-O livrare anulata nu va aduce profit. O livrare finalizata nu mai
+* O livrare anulata nu va aduce profit. 
+* O livrare finalizata nu mai
 poate fi anulata.
 
 ### GET /orders/status?date=15-12-2021&destination=Ploiesti
 Returneaza lista de livrari din ziua si pentru destinatia date ca si parametru.  
-Daca parametrul date nu este furnizat, se vor intoarce date despre livrarile din ziua curenta a
+* Daca parametrul date nu este furnizat, se vor intoarce date despre livrarile din ziua curenta a
 aplicatiei.  
-Daca parametrul destination nu este furnizat, se vor intoarce date despre livrarile catre toate
+* Daca parametrul destination nu este furnizat, se vor intoarce date despre livrarile catre toate
 destinatiile.
 
 ### GET /actuator/info
