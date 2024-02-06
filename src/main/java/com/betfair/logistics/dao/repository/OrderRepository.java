@@ -10,6 +10,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findAllByDestinationId(Long destinationId);
 
+    List<Order> findAllByDeliveryDateAndDestination_NameContainingIgnoreCase(Long deliveryDate, String destinationQueryString);
+
     default void archiveOrder(Order order) {
         order.setDestination(null);
         order.setOrderStatus(OrderStatus.ARCHIVED);

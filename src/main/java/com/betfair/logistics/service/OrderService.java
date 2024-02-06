@@ -24,10 +24,23 @@ import static com.betfair.logistics.dao.converter.OrderConverter.modelListToDtoL
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-
     private final CompanyInfo companyInfo;
+
     private final DestinationRepository destinationRepository;
     private final OrderRepository orderRepository;
+
+    public List<OrderDto> getOrders(String dateAsString, String destinationQueryParam) {
+
+        Long dateAsLong = companyInfo.getCurrentDateAsLong();
+        if (!dateAsString.isBlank()) {
+            dateAsLong = companyInfo.getLocalDateStringAsLong(dateAsString);
+        }
+
+        List<Order> foundOrders =
+                orderRepository.findAllByDeliveryDateAndDestination_NameContainingIgnoreCase(dateAsLong, destinationQueryParam);
+
+        return modelListToDtoList(foundOrders);
+    }
 
     public List<OrderDto> addOrders(List<AddOrderDto> addOrderDtos) throws CannotCreateResourceException {
 

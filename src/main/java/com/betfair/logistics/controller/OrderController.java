@@ -27,4 +27,10 @@ public class OrderController {
         orderService.cancelOrders(orderIds);
     }
 
+    @GetMapping("/status")
+    public List<OrderDto> getOrders(@RequestParam(name = "date", required = false, defaultValue = "") String dateAsString,
+                                    @RequestParam(name = "destination", required = false, defaultValue = "") String destinationQueryParam) {
+        return orderService.getOrders(dateAsString, destinationQueryParam);
+    }
+
 }
