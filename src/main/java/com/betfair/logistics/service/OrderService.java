@@ -58,14 +58,7 @@ public class OrderService {
     }
 
     public void cancelOrders(List<Long> orderIds) {
-
-        List<Order> foundOrders = orderRepository.findAllById(orderIds);
-        for (Order foundOrder : foundOrders) {
-            if (foundOrder.getOrderStatus() != OrderStatus.DELIVERED) {
-                foundOrder.setOrderStatus(OrderStatus.CANCELED);
-            }
-        }
-        orderRepository.saveAll(foundOrders);
+        orderRepository.updateStatusForOrders(orderIds, null, OrderStatus.CANCELED);
     }
 
     private void validateOrdersPayload(List<AddOrderDto> addOrderDtos, Set<Long> destinationIds) throws CannotCreateResourceException {
