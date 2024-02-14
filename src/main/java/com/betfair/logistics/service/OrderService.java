@@ -1,12 +1,12 @@
 package com.betfair.logistics.service;
 
 import com.betfair.logistics.config.CompanyInfo;
+import com.betfair.logistics.dao.cache.DestinationCache;
 import com.betfair.logistics.dao.dto.AddOrderDto;
 import com.betfair.logistics.dao.dto.OrderDto;
 import com.betfair.logistics.dao.model.Destination;
 import com.betfair.logistics.dao.model.Order;
 import com.betfair.logistics.dao.model.OrderStatus;
-import com.betfair.logistics.dao.repository.DestinationRepository;
 import com.betfair.logistics.dao.repository.OrderRepository;
 import com.betfair.logistics.exception.CannotCreateResourceException;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ import static com.betfair.logistics.dao.converter.OrderConverter.modelListToDtoL
 public class OrderService {
     private final CompanyInfo companyInfo;
 
-    private final DestinationRepository destinationRepository;
+    private final DestinationCache destinationCache;
     private final OrderRepository orderRepository;
 
     public List<OrderDto> getOrders(String dateAsString, String destinationQueryParam) {
@@ -44,7 +44,7 @@ public class OrderService {
 
     public List<OrderDto> addOrders(List<AddOrderDto> addOrderDtos) throws CannotCreateResourceException {
 
-        Map<Long, Destination> destinationMap = destinationRepository.findAll().stream()
+        Map<Long, Destination> destinationMap = destinationCache.findAll().stream()
                 .collect(Collectors.toMap(Destination::getId, Function.identity()));
 
         validateOrdersPayload(addOrderDtos, destinationMap.keySet());
